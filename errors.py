@@ -12,3 +12,8 @@ class ParkomatNotImplementedMoneyValueException(ParkomatException):
     '''
     Exception raised if value given to MoneyUnit is not allowed by this Parkomat
     '''
+
+class ParkomatIncorrectTimeException(ParkomatException):
+    '''
+    Exception raised if value given to Clock is incorrect
+    '''
