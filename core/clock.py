@@ -1,6 +1,6 @@
 import datetime
-from errors import ParkomatIncorrectTimeException
-from money_unit import Money
+from core.errors import ParkomatIncorrectTimeException
+from core import MoneyUnit
 
 class Clock:
 
@@ -11,7 +11,7 @@ class Clock:
     def curr_time(self):
         return self._curr_time
 
-    @property.setter
+    @curr_time.setter
     def curr_time(self, new_time: str):
         try:
             self._curr_time = datetime.datetime(new_time)
