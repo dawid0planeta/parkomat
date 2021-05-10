@@ -1,19 +1,22 @@
 from decimal import *
+from errors import ParkomatIncorrectMoneyValueException, ParkomatNotImplementedMoneyValueException
 from typing import List
 
 class MoneyUnit:
     '''
     A class to represent units of money. Coins or banknotes
     '''
+
     _allowed = ('0.01', '0.02', '0.05', '0.10', '0.20', '0.50', '1.00', '2.00', '5.00', '10.00', '20.00', '50.00')
+
     def __init__(self, value: str):
         if value in MoneyUnit._allowed:
             try:
                 self._value = Decimal(value)
-            except:
-                raise ValueError #TODO: make custom error
+            except ValueError:
+                raise ParkomatIncorrectMoneyValueException
         else:
-            raise ValueError #TODO make other custom error
+            raise ParkomatNotImplementedMoneyValueException
 
     @property
     def value(self):
