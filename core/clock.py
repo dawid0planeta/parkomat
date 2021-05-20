@@ -8,32 +8,25 @@ class Clock:
     def __init__(self):
         self._curr_time = datetime.now()
 
-    @classmethod
-    def add_times(cls, curr: datetime, delta_in_minutes: int) -> datetime:
+    def add_times(self, curr: datetime, delta: timedelta) -> datetime:
         today_20 = datetime.combine(date.today(), time(20))
-        minutes_left_in_day = Clock.timedelta_to_minutes(today_20 - datetime.now())
-        if delta_in_minutes <= minutes_left_in_day:
-            return curr + timedelta(minutes=delta_in_minutes)
+        time_left_in_day = (today_20 - self.curr_time)
+        if delta <= time_left_in_day:
+            return curr + delta
 
-        delta_in_minutes -= minutes_left_in_day
-        curr = cls._get_start_next_day(curr)
-        while delta_in_minutes >= 720:
-            delta_in_minutes -= 720
-            curr = cls._get_start_next_day(curr)
+        delta -= time_left_in_day
+        curr = self._get_start_next_day(curr)
+        day = timedelta(minutes=720)
+        while delta >= day:
+            delta -= day
+            curr = self._get_start_next_day(curr)
+        return curr + day
 
-        return curr + timedelta(minutes=delta_in_minutes)
-
-
-    @classmethod
-    def _get_start_next_day(cls, curr) -> datetime:
-        new_date = datetime.combine(curr.date() + timedelta(days=1), time(hour=8, seconds=curr.second))
+    def _get_start_next_day(self, curr) -> datetime:
+        new_date = datetime.combine(curr.date() + timedelta(days=1), time(hour=8))
         if new_date.weekday() in (5, 6):
-            return cls._get_start_next_day(new_date)
+            return self._get_start_next_day(new_date)
         return new_date
-
-    @classmethod
-    def _timedelta_to_minutes(cls, delta: timedelta) -> int:
-        return int((delta.seconds/60) + 1)
 
     @property
     def curr_time(self) -> datetime:
