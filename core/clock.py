@@ -1,7 +1,7 @@
 import datetime
 from datetime import datetime, date, time, timedelta
 from core.errors import ParkomatIncorrectTimeException
-from core import MoneyUnit
+from core.money_unit import MoneyUnit
 
 class Clock:
 

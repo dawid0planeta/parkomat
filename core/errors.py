@@ -20,5 +20,10 @@ class ParkomatIncorrectTimeException(ParkomatException):
 
 class ParkomatFullException(ParkomatException):
     '''
-    Exception rasied if coin given to MoneyStorage won't fit
+    Exception raised if coin given to MoneyStorage won't fit
+    '''
+
+class ParkomatIncorrectRegistrationNumber(ParkomatException):
+    '''
+    Exception raised if registration number given to Parkomat is in inccorect format
     '''
