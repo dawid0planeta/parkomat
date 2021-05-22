@@ -38,17 +38,16 @@ class ParkomatGUI:
         Button(master, text="Anuluj", command=self.cancel).grid(column=2, row=11)
 
 
-    def update_curr_time(self):
+    def update_curr_time(self) -> None:
         self._parkomat.update_time()
         self._curr_time_label.set(self._parkomat.curr_time.strftime("%a %d %b %Y %H:%M:%S"))
         self.master.after(1000, self.update_curr_time)
 
-    def update_leave_time(self):
+    def update_leave_time(self) -> None:
         self._leave_time_label.set(self._parkomat.leave_time.strftime("%a %d %b %Y %H:%M:%S"))
         self.master.after(1000, self.update_leave_time)
 
-    def confirm(self):
-
+    def confirm(self) -> None:
         self._parkomat.registration_number = self._current_registration_num.get()
         try:
             receipt = self._parkomat.buy()
@@ -65,11 +64,11 @@ class ParkomatGUI:
         except ParkomatNoMoneyInsertedException:
             showinfo("Nie wrzucono pieniędzy", "Wrzuć pieniądze")
 
-    def cancel(self):
+    def cancel(self) -> None:
         self._parkomat.reset()
         self._current_registration_num.set('')
 
-    def change_time(self):
+    def change_time(self) -> None:
         self._parkomat.curr_time = self._current_time_var.get()
 
     def put_money(self, value: str) -> None:

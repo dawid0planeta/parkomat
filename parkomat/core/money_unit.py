@@ -18,8 +18,8 @@ class MoneyUnit:
             raise ParkomatNotImplementedMoneyValueException
 
     @property
-    def value(self):
+    def value(self) -> Decimal:
         return self._value
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self._value)

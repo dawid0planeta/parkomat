@@ -88,10 +88,10 @@ class Parkomat:
 
 
     @property
-    def registration_number(self):
+    def registration_number(self) -> str:
         return self._registration_number
 
     @registration_number.setter
-    def registration_number(self, new_number: str):
+    def registration_number(self, new_number: str) -> None:
         self._registration_number = new_number
 
