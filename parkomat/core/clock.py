@@ -7,8 +7,12 @@ class Clock:
 
     def __init__(self):
         self._curr_time = datetime.combine(date(2021, 5, 24), datetime.now().time())
+        self._curr_time = datetime.now()
 
     def add_times(self, curr: datetime, delta: timedelta) -> datetime:
+        while curr.weekday() in (5, 6):
+            curr = self._get_start_next_day(curr)
+
         today_20 = datetime.combine(curr.date(), time(20))
         time_left_in_day = (today_20 - self.curr_time)
         if delta <= time_left_in_day:
