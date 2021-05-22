@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from core import MoneyUnit, MoneyStorage
+from parkomat.core import MoneyUnit, MoneyStorage
 
 allowed = ('0.01', '0.02', '0.05', '0.10', '0.20', '0.50', '1.00', '2.00', '5.00', '10.00', '20.00', '50.00')
 

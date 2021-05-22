@@ -1,7 +1,7 @@
-from core.errors import ParkomatFullException
 from typing import List, Set
 
-from core.money_unit import MoneyUnit
+from parkomat.core.money_unit import MoneyUnit
+from parkomat.core.errors import ParkomatFullException
 
 class MoneyStorage:
     _coins = {'0.01', '0.02', '0.05', '0.10', '0.20', '0.50', '1.00', '2.00', '5.00'}

@@ -1,6 +1,6 @@
 from decimal import *
 from typing import List
-from core.errors import ParkomatIncorrectMoneyValueException, ParkomatNotImplementedMoneyValueException
+from parkomat.core.errors import ParkomatIncorrectMoneyValueException, ParkomatNotImplementedMoneyValueException
 
 class MoneyUnit:
     '''

@@ -1,10 +1,10 @@
 from decimal import Decimal
 from typing import Tuple
 from datetime import datetime, timedelta, date, time
-from core.errors import ParkomatIncorrectRegistrationNumber
-from core.clock import Clock
-from core.money_storage import MoneyStorage
-from core.money_unit import MoneyUnit
+from parkomat.core.errors import ParkomatIncorrectRegistrationNumber
+from parkomat.core.clock import Clock
+from parkomat.core.money_storage import MoneyStorage
+from parkomat.core.money_unit import MoneyUnit
 
 class Parkomat:
 
@@ -23,16 +23,17 @@ class Parkomat:
         self._update_leave_time()
 
         receipt = (self._registration_number, self.curr_time, self._leave_time)
-        self._reset()
+        self.reset()
         return receipt
 
     def put_money(self, money: MoneyUnit) -> None:
+        print(money)
         self._money_storage.put_money(money)
         self._money_put.append(money)
         self._update_delta_based_on_money()
         self._update_leave_time()
 
-    def _reset(self) -> None:
+    def reset(self) -> None:
         self._leave_time = self.curr_time
         self._current_delta = timedelta(seconds=0)
         self._money_put = []
@@ -61,17 +62,26 @@ class Parkomat:
 
     @property
     def leave_time(self) -> datetime:
+        self._update_leave_time()
         return self._leave_time
 
     @property
     def curr_time(self) -> datetime:
         return self._clock.curr_time
 
+    @curr_time.setter
+    def curr_time(self, new_time: datetime) -> None:
+        self._clock.curr_time = new_time
+
+    def update_time(self) -> None:
+        self._clock.update_time()
+
+
     @property
     def registration_number(self):
         return self._registration_number
 
-    @property.setter
+    @registration_number.setter
     def registration_number(self, new_number: str):
         if all(c.isdigit() or c.isupper() for c in new_number):
             self._registration_number = new_number
