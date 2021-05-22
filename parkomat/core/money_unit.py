@@ -3,7 +3,7 @@ from parkomat.core.errors import ParkomatIncorrectMoneyValueException, ParkomatN
 
 class MoneyUnit:
     '''
-    A class to represent units of money. Coins or banknotes
+    A class to represent units of money with proper checks and constraints.
     '''
 
     _allowed = {'0.01', '0.02', '0.05', '0.10', '0.20', '0.50', '1.00', '2.00', '5.00', '10.00', '20.00', '50.00'}
