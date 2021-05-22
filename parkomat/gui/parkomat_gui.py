@@ -1,21 +1,18 @@
-from parkomat.core.errors import ParkomatEmptyRegistrationNumberException, ParkomatFullException, ParkomatIncorrectRegistrationNumberException, ParkomatNoMoneyInsertedException, ParkomatNotImplementedMoneyValueException
-from tkinter import Entry, Tk, Label, Button
+from tkinter import Entry, Label, Button
 from tkinter.messagebox import showinfo
-from tkinter import ttk
-import tkinter as tk
-from tkinter import N, W, E, S
-from datetime import datetime
+from tkinter import StringVar
 from parkomat.core import MoneyUnit, Parkomat
+from parkomat.core.errors import *
 
 class ParkomatGUI:
     def __init__(self, master):
         self.master = master
         self._parkomat = Parkomat()
-        self._curr_time_label = tk.StringVar()
-        self._leave_time_label = tk.StringVar()
-        self._current_registration_num = tk.StringVar()
+        self._curr_time_label = StringVar()
+        self._leave_time_label = StringVar()
+        self._current_registration_num = StringVar()
         self._current_registration_num.set('')
-        self._current_time_var = tk.StringVar()
+        self._current_time_var = StringVar()
         self._current_time_var.set(self._parkomat.curr_time.strftime("%H:%M:%S"))
         self.update_curr_time()
         self.update_leave_time()

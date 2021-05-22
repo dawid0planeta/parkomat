@@ -1,6 +1,6 @@
 from decimal import Decimal
 from typing import Tuple
-from datetime import datetime, timedelta, date, time
+from datetime import datetime, timedelta
 from parkomat.core.errors import *
 from parkomat.core.clock import Clock
 from parkomat.core.money_storage import MoneyStorage

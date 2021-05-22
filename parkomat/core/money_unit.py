@@ -1,5 +1,4 @@
-from decimal import *
-from typing import List
+from decimal import Decimal
 from parkomat.core.errors import ParkomatIncorrectMoneyValueException, ParkomatNotImplementedMoneyValueException
 
 class MoneyUnit:
@@ -24,18 +23,3 @@ class MoneyUnit:
 
     def __str__(self):
         return str(self._value)
-
-
-
-
-
-# class Coin(MoneyUnit):
-
-#     def __init__(self, value: str):
-#         super().__init__(value, _allowed)
-
-# class Banknote(MoneyUnit):
-#     _allowed = ('10.00', '20.00', '50.00')
-
-#     def __init__(self, value: str):
-#         super().__init__(value, _allowed)
