@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import Tuple
 from datetime import datetime, timedelta, date, time
-from parkomat.core.errors import ParkomatIncorrectRegistrationNumber
+from parkomat.core.errors import *
 from parkomat.core.clock import Clock
 from parkomat.core.money_storage import MoneyStorage
 from parkomat.core.money_unit import MoneyUnit
@@ -21,6 +21,15 @@ class Parkomat:
     def buy(self) -> Tuple[str, datetime, datetime]:
         self._update_delta_based_on_money()
         self._update_leave_time()
+        if self._registration_number == '':
+            raise ParkomatEmptyRegistrationNumberException
+
+        if len(self._money_put) == 0:
+            raise ParkomatNoMoneyInsertedException
+
+        if not all(c.isdigit() or c.isupper() for c in self._registration_number):
+            raise ParkomatIncorrectRegistrationNumberException
+
 
         receipt = (self._registration_number, self.curr_time, self._leave_time)
         self.reset()
@@ -84,8 +93,5 @@ class Parkomat:
 
     @registration_number.setter
     def registration_number(self, new_number: str):
-        if all(c.isdigit() or c.isupper() for c in new_number):
-            self._registration_number = new_number
-        else:
-            raise ParkomatIncorrectRegistrationNumber
+        self._registration_number = new_number
 

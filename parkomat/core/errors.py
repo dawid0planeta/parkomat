@@ -23,7 +23,17 @@ class ParkomatFullException(ParkomatException):
     Exception raised if coin given to MoneyStorage won't fit
     '''
 
-class ParkomatIncorrectRegistrationNumber(ParkomatException):
+class ParkomatIncorrectRegistrationNumberException(ParkomatException):
     '''
     Exception raised if registration number given to Parkomat is in inccorect format
+    '''
+
+class ParkomatEmptyRegistrationNumberException(ParkomatException):
+    '''
+    Exception raised if no reqistration number was given
+    '''
+
+class ParkomatNoMoneyInsertedException(ParkomatException):
+    '''
+    Exception raised when no money was inserted
     '''

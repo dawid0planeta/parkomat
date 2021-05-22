@@ -1,4 +1,4 @@
-from parkomat.core.errors import ParkomatFullException
+from parkomat.core.errors import ParkomatEmptyRegistrationNumberException, ParkomatFullException, ParkomatIncorrectRegistrationNumberException, ParkomatNoMoneyInsertedException, ParkomatNotImplementedMoneyValueException
 from tkinter import Entry, Tk, Label, Button
 from tkinter.messagebox import showinfo
 from tkinter import ttk
@@ -53,13 +53,20 @@ class ParkomatGUI:
     def confirm(self):
 
         self._parkomat.registration_number = self._current_registration_num.get()
-        receipt = self._parkomat.buy()
-        showinfo("Paragon", "Numer rejestracyjny: {nr}\nGodzina zakupu: {order_time}\nGodzina odjazdu: {leave_time}".format(
-                             nr=receipt[0],
-                             order_time=receipt[1].strftime("%a %d %b %Y %H:%M:%S"),
-                             leave_time=receipt[2].strftime("%a %d %b %Y %H:%M:%S")))
+        try:
+            receipt = self._parkomat.buy()
+            showinfo("Paragon", "Numer rejestracyjny: {nr}\nGodzina zakupu: {order_time}\nGodzina odjazdu: {leave_time}".format(
+                        nr=receipt[0],
+                        order_time=receipt[1].strftime("%a %d %b %Y %H:%M:%S"),
+                        leave_time=receipt[2].strftime("%a %d %b %Y %H:%M:%S")))
 
-        self._current_registration_num.set('')
+            self._current_registration_num.set('')
+        except ParkomatEmptyRegistrationNumberException:
+            showinfo("Pusta tablica rejestracyjna", "Podaj tablicę rejestracyjną")
+        except ParkomatIncorrectRegistrationNumberException:
+            showinfo("Niepoprawna tablica rejestracyjna", "Podaj poprawną tablicę rejestracyjną")
+        except ParkomatNoMoneyInsertedException:
+            showinfo("Nie wrzucono pieniędzy", "Wrzuć pieniądze")
 
     def cancel(self):
         self._parkomat.reset()
