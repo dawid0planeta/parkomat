@@ -8,7 +8,7 @@ class MoneyStorage:
     def __init__(self, allowed_values: Set[str], initial_units: List[MoneyUnit]):
         self._money = {key: [] for key in allowed_values}
         for unit in initial_units:
-            self._money[str(unit.value)].append(unit)
+            self._money[str(unit)].append(unit)
 
     @property
     def money(self):
@@ -20,6 +20,9 @@ class MoneyStorage:
             self._money[str_unit].append(unit)
         else:
             raise ParkomatFullException
+
+    def remove_money(self, unit: MoneyUnit) -> None:
+        self._money[str(unit)].pop()
 
 
 

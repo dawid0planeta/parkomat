@@ -27,7 +27,6 @@ class Parkomat:
         return receipt
 
     def put_money(self, money: MoneyUnit) -> None:
-        print(money)
         self._money_storage.put_money(money)
         self._money_put.append(money)
         self._update_delta_based_on_money()
@@ -36,6 +35,8 @@ class Parkomat:
     def reset(self) -> None:
         self._leave_time = self.curr_time
         self._current_delta = timedelta(seconds=0)
+        for each in self._money_put:
+            self._money_storage.remove_money(each)
         self._money_put = []
         self._registration_number = ''
 

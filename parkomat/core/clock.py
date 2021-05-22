@@ -15,13 +15,9 @@ class Clock:
             return curr + delta
 
         delta -= time_left_in_day
-        print(time_left_in_day)
-        print(delta)
         curr = self._get_start_next_day(curr)
-        print(curr)
         day = timedelta(minutes=720)
         while delta >= day:
-            print(delta)
             delta -= day
             curr = self._get_start_next_day(curr)
 
