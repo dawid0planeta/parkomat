@@ -94,7 +94,10 @@ class ParkomatGUI:
         """
         Reads the entered time and changes the internal clock
         """
-        self._parkomat.curr_time = self._current_time_var.get()
+        try:
+            self._parkomat.curr_time = self._current_time_var.get()
+        except ParkomatIncorrectTimeException:
+            showinfo("Niepoprawna godzina", "Niepoprawna godzina, podaj inną")
 
     def put_money(self, unit: MoneyUnit) -> None:
         """
