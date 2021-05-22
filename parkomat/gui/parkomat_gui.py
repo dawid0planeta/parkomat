@@ -1,3 +1,4 @@
+from parkomat.core.errors import ParkomatFullException
 from tkinter import Entry, Tk, Label, Button
 from tkinter.messagebox import showinfo
 from tkinter import ttk
@@ -24,7 +25,7 @@ class ParkomatGUI:
 
         for i, unit in enumerate(units):
             Button(master, text="Wrzuć " + str(unit) + "zł",
-            command=lambda unit=unit: self._parkomat.put_money(unit)).grid(column=0, row=i)
+            command=lambda unit=unit: self.put_money(unit)).grid(column=0, row=i)
 
         Label(master, text="Podaj aktualną godzinę:").grid(column=1, row=0)
         Entry(master, textvariable=self._current_time_var).grid(column=2, row=0)
@@ -66,3 +67,9 @@ class ParkomatGUI:
 
     def change_time(self):
         self._parkomat.curr_time = self._current_time_var.get()
+
+    def put_money(self, value: str) -> None:
+        try:
+            self._parkomat.put_money(value)
+        except ParkomatFullException:
+            showinfo("Parkomat pełny", "Parkomat pełny, użyj innego nominału")
